@@ -19,6 +19,16 @@ function printUsage() {
     process.exit(1);
 }
 
+function printInColumns(listOfStrings, numColumns) {
+    for (let i = 0; i < listOfStrings.length / numColumns; ++i) {
+        for (let j = 0; j < numColumns; ++j) {
+            const nthString = listOfStrings[numColumns * i + j];
+            nthString ? process.stdout.write(nthString.padStart(15)) : null;
+        }
+        process.stdout.write('\n');
+    }
+}
+
 function parseArgs(args = process.argv) {
     var verb, word;
     const arguments = process.argv.slice(2);
@@ -81,11 +91,17 @@ function parseArgs(args = process.argv) {
     switch (verb) {
         case "def":
             const definitions = await getDefinition(word);
-            console.log(chalk.bold('\n' + word + '\n'));
-            console.log(definitions[0].text, '\n');
+            console.log(chalk.bold('\n' + word));
+            console.log('\t', definitions[0].text, '\n');
             break;
         case "syn":
-            await getSynonyms(word);
+            const synonyms = await getSynonyms(word);
+            console.log(chalk.bold('\n' + word));
+
+            console.log(chalk.inverse('\n' + "Synonyms"));
+            if (! synonyms || ! synonyms.length)
+                console.log('\t No synonyms found for this word.')
+            printInColumns(synonyms, 4);
             break;
         case "ant":
             await getAntonyms(word);
