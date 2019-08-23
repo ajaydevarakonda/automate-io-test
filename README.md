@@ -1,25 +1,15 @@
 # Command Line Dictionary Tool
+Create a command-line dictionary tool using 42 words api. This is words api limited to 42 words
 
-command line npm modules
-https://www.npmjs.com/package/yargs
-https://www.npmjs.com/package/nopt
-https://www.npmjs.com/package/commander
-
-Create a command-line dictionary tool using this api.
-This is words api limited to 42 words
-
+```
 apihost = 'https://fourtytwowords.herokuapp.com'
 
-Available APIs
+# Available APIs
 {apihost}/words/randomWord?api_key={api_key}
 {apihost}/word/{word}/definitions?api_key={api_key}
 {apihost}/word/{word}/examples?api_key={api_key}
 {apihost}/word/{word}/relatedWords?api_key={api_key}
-
-The API key for it is included in the email you’ve received.
-
-This has to be programmed in NodeJS
-
+```
 
 Requirements
 The command line tool should have the following functions - 
@@ -68,11 +58,3 @@ OR Display another antonym of the word
 OR Display another synonym of the word
 		-3 quit
 			Display the word, its full dict, and quit
-Areas of Focus
-	- Code quality
-	- Code reuse
-	- Code structure
-	- Use of high level language features
-Git
-It is advised to use git, and push code to github. Commit frequently, and I would like to see how the code evolved by looking at your commits. Share the public URL to the repo of the code as your submission.
-
