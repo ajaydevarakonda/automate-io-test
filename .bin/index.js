@@ -116,7 +116,9 @@ function parseArgs(args = process.argv) {
             printInColumns(antonyms, 4);
             break;
         case "ex":
-            await getExamples(word);
+            const examples = await getExamples(word);
+            console.log(chalk.inverse('\n' + "Examples"));
+            examples.forEach((ex, indx) => console.log(`\t${indx+1}. ${ex.text}`));
             break;
         case "dict":
             await getDictionaryEntry(word);
