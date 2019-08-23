@@ -78,7 +78,7 @@ function parseArgs(args = process.argv) {
         verb = "wod";
         word = null;
     } else {
-        verb = "puse";
+        verb = "use";
         word = null;
     }
 
@@ -88,6 +88,9 @@ function parseArgs(args = process.argv) {
 (async function () {
     const { verb, word } = parseArgs();
 
+    if (verb !== "play" || verb !== "use")
+        console.log(chalk.bold('\n' + word));
+
     switch (verb) {
         case "def":
             const definitions = await getDefinition(word);
@@ -96,15 +99,21 @@ function parseArgs(args = process.argv) {
             break;
         case "syn":
             const synonyms = await getSynonyms(word);
-            console.log(chalk.bold('\n' + word));
-
             console.log(chalk.inverse('\n' + "Synonyms"));
+
             if (! synonyms || ! synonyms.length)
                 console.log('\t No synonyms found for this word.')
+
             printInColumns(synonyms, 4);
             break;
         case "ant":
-            await getAntonyms(word);
+            const antonyms = await getAntonyms(word);
+            console.log(chalk.inverse('\n' + "Antonyms"));
+
+            if (! antonyms || ! antonyms.length)
+                console.log('\t No antonyms found for this word.')
+
+            printInColumns(antonyms, 4);
             break;
         case "ex":
             await getExamples(word);
@@ -119,7 +128,7 @@ function parseArgs(args = process.argv) {
         case "play":
             await playGame();
             break;
-        case "puse":
+        case "use":
         default:
             printUsage();
             break;
