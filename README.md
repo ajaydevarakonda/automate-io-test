@@ -4,14 +4,14 @@ Create a command-line dictionary tool using 42 words api. This is words api limi
 ```
 apihost = 'https://fourtytwowords.herokuapp.com'
 
-# Available APIs
+## Available APIs
 {apihost}/words/randomWord?api_key={api_key}
 {apihost}/word/{word}/definitions?api_key={api_key}
 {apihost}/word/{word}/examples?api_key={api_key}
 {apihost}/word/{word}/relatedWords?api_key={api_key}
 ```
 
-Requirements
+## Requirements
 The command line tool should have the following functions - 
 The output should be nicely formatted on console, and show all relevant information.
 
