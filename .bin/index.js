@@ -126,7 +126,6 @@ function printDictionaryEntry(word, { definitions, synonyms, antonyms, examples 
 (async function () {
     const { verb, word } = parseArgs();
 
-    util.log(verb, word);
     switch (verb) {
         case "def": {
             const definitions = await getDefinition(word);
