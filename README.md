@@ -11,7 +11,7 @@ apihost = 'https://fourtytwowords.herokuapp.com'
 {apihost}/word/{word}/relatedWords?api_key={api_key}
 ```
 
-## Requirements
+## Features
 The command line tool should have the following functions - 
 The output should be nicely formatted on console, and show all relevant information.
 
