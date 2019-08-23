@@ -29,6 +29,8 @@ function printInColumns(listOfStrings, numColumns) {
     }
 }
 
+const verbs = [ "def", "syn", "ant", "ex", "dict", "play" ]
+
 function parseArgs(args = process.argv) {
     var verb, word;
     const arguments = process.argv.slice(2);
@@ -71,7 +73,7 @@ function parseArgs(args = process.argv) {
     } else if (arguments.length === 1 && arguments[0] === "play") {
         verb = "play";
         word = null;
-    } else if (arguments.length === 1 && isWord(arguments[0])) {
+    } else if (arguments.length === 1 && ! verbs.includes(arguments[0]) && isWord(arguments[0])) {
         verb = "dict";
         word = arguments[0];
     } else if (arguments.length === 0) {
@@ -124,6 +126,7 @@ function printDictionaryEntry(word, { definitions, synonyms, antonyms, examples 
 (async function () {
     const { verb, word } = parseArgs();
 
+    util.log(verb, word);
     switch (verb) {
         case "def": {
             const definitions = await getDefinition(word);
