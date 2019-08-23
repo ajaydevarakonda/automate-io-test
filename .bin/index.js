@@ -159,7 +159,6 @@ function printDictionaryEntry(word, { definitions, synonyms, antonyms, examples 
         }
         case "wod": {
             const todaysWord = await getWordOfTheDay();
-            console.log(todaysWord)
             const [
                 definitions,
                 synonyms,
