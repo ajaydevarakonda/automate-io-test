@@ -85,48 +85,87 @@ function parseArgs(args = process.argv) {
     return { verb, word };
 }
 
+function printDictionaryEntry(word, { definitions, synonyms, antonyms, examples }) {
+    console.log(chalk.bold('\n' + word));
+
+    // definition
+    if (definitions) {
+        console.log('\t', definitions[0].text, '\n');    
+    }
+
+    // synonyms
+    if (synonyms) {
+        console.log(chalk.inverse('\n' + "Synonyms"));
+
+        if (! synonyms || ! synonyms.length)
+            console.log('\t No synonyms found for this word.')
+    
+        printInColumns(synonyms, 4);
+    }
+
+    // antonyms
+    if (antonyms) {
+        console.log(chalk.inverse('\n' + "Antonyms"));
+
+        if (! antonyms || ! antonyms.length)
+            console.log('\t No antonyms found for this word.')
+
+        printInColumns(antonyms, 4);
+    }
+
+    if (examples) {
+        console.log(chalk.inverse('\n' + "Examples"));
+        examples.forEach((ex, indx) => console.log(`\t${indx+1}. ${ex.text}`));
+    }
+
+    console.log();
+}
+
 (async function () {
     const { verb, word } = parseArgs();
 
-    if (verb !== "play" || verb !== "use")
-        console.log(chalk.bold('\n' + word));
-
     switch (verb) {
-        case "def":
+        case "def": {
             const definitions = await getDefinition(word);
-            console.log(chalk.bold('\n' + word));
-            console.log('\t', definitions[0].text, '\n');
+            printDictionaryEntry(word, { definitions });
             break;
-        case "syn":
+        }
+        case "syn": {
             const synonyms = await getSynonyms(word);
-            console.log(chalk.inverse('\n' + "Synonyms"));
-
-            if (! synonyms || ! synonyms.length)
-                console.log('\t No synonyms found for this word.')
-
-            printInColumns(synonyms, 4);
+            printDictionaryEntry(word, { synonyms });
             break;
-        case "ant":
+        }
+        case "ant": {
             const antonyms = await getAntonyms(word);
-            console.log(chalk.inverse('\n' + "Antonyms"));
-
-            if (! antonyms || ! antonyms.length)
-                console.log('\t No antonyms found for this word.')
-
-            printInColumns(antonyms, 4);
+            printDictionaryEntry(word, { antonyms });
             break;
-        case "ex":
+        }
+        case "ex": {
             const examples = await getExamples(word);
-            console.log(chalk.inverse('\n' + "Examples"));
-            examples.forEach((ex, indx) => console.log(`\t${indx+1}. ${ex.text}`));
+            printDictionaryEntry(word, { examples });
             break;
-        case "dict":
-            await getDictionaryEntry(word);
+        }
+        case "dict": {
+            const [
+              definitions,
+              synonyms,
+              antonyms,
+              examples
+            ] = await getDictionaryEntry(word);
+            printDictionaryEntry(word, { definitions, synonyms, antonyms, examples });
             break;
-        case "wod":
+        }
+        case "wod": {
             const todaysWord = await getWordOfTheDay();
-            await getDictionaryEntry(todaysWord);
+            const [
+                definitions,
+                synonyms,
+                antonyms,
+                examples
+              ] = await getDictionaryEntry(todaysWord);
+              printDictionaryEntry(todaysWord, { definitions, synonyms, antonyms, examples });
             break;
+        }
         case "play":
             await playGame();
             break;
