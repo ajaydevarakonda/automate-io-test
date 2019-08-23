@@ -1,5 +1,5 @@
 # Command Line Dictionary Tool
-Create a command-line dictionary tool using 42 words api. This is words api limited to 42 words
+Create a command-line dictionary tool using 42 words dictionary api.
 
 ```
 apihost = 'https://fourtytwowords.herokuapp.com'
